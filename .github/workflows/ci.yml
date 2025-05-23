@@ -39,4 +39,4 @@ jobs:
                 FULL_REPO_NAME="${ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
                   
                 # Build the Docker image
-                   docker build -t $IMAGE_REPO_NAME.
+                #do cker build -t $IMAGE_REPO_NAME.
