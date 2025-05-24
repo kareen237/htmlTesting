@@ -22,4 +22,4 @@ jobs:
 
       - name: Terraform AWS ECR Setup
         run: echo ""
-          docker build -t bamendagirl
+          docker build -t bamendagirl.
