@@ -23,6 +23,7 @@ jobs:
                 aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
                 aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
                 aws-region: us-east-1
+
             - name: Login to Amazon ECR
               id: login-ecr
               uses: aws-actions/amazon-ecr-login@v2
@@ -33,10 +34,11 @@ jobs:
                id: build-image
                run: 
                 IMAGE_REPO_NAME=githubbucket91
-                IMAGE_TAG=${{ github.event.inputs.image_tag }}
-                ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
-                REGION=$(aws configure get region)
-                FULL_REPO_NAME="${ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
+                #IMAGE_TAG=${{ github.event.inputs.image_tag }}
+                ##REGION=$(aws configure get region)
+               # FULL_REPO_NAME="${ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
                   
                 # Build the Docker image
                 #do cker build -t $IMAGE_REPO_NAME.
+
+                
