@@ -33,12 +33,8 @@ jobs:
             -  name: Build, tag, and push image to Amazon ECR
                id: build-image
                run: 
-                IMAGE_REPO_NAME=githubbucket91
-                #IMAGE_TAG=${{ github.event.inputs.image_tag }}
-                ##REGION=$(aws configure get region)
-               # FULL_REPO_NAME="${ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
-                  
-                # Build the Docker image
-                #do cker build -t $IMAGE_REPO_NAME.
+                 docker build -t bamendagirl.
+                
+                
 
                 
