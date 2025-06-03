@@ -38,7 +38,7 @@ jobs:
       -  name: Build, tag, and push image to Amazon ECR
          id: build-image
          run: 
-          docker buildx build -t bamendagirl .
+          docker build -t bamendagirl .
 
           
           
