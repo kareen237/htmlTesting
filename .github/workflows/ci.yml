@@ -33,10 +33,11 @@ jobs:
             -  name: Build, tag, and push image to Amazon ECR
                id: build-image
                run: 
-                docker build -t bamendagirl .
+                docker build -t bamendagirl ./path/to/dockerfile/directory
                 docker tag bamendagirl:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/bamendagirl:v1
-                docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/bamendagirl:v1               
-                  
+                docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/bamendagirl:v1
+                 
+  
                   
                 
 
