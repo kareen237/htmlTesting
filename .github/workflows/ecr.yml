@@ -35,12 +35,17 @@ jobs:
         with:
           mask-password: 'false'
 
-      -  name: Build, tag, and push image to Amazon ECR
-         id: build-image
-         run: 
-           docker build -t bamendagirl .
-           docker tag bamendagirl:latest ***.dkr.ecr.us-east-1.amazonaws.com/bamendagirl:v1
-           docker push ***.dkr.ecr.us-east-1.amazonaws.com/bamendagirl:v1
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        run: 
+           docker build -t bamendagirl:latest .
+     
+      - name: Build, tag, and push image to Amazon ECR
+        id: tah
+        run: |        
+           docker tag bamendagirl:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/bamendagirl:v1
+           docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/bamendagirl:v1
+            
         
       - name: setup kubectl
         run: |
