@@ -49,7 +49,7 @@ jobs:
         
       - name: setup kubectl
         run: |
-           aws eks update-kebeconfig --name "my-eks-cluster"
+           aws eks  update-kubeconfig --name "my-eks-cluster"
            kubectl get pods --list 
 
           
