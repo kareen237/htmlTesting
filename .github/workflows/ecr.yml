@@ -59,6 +59,9 @@ jobs:
             kubectl apply -f service.yml
           
 
+      - name: callint the public adreess 
+        run: |
+             kubectl get svc devops-service -n default
 
           
 
