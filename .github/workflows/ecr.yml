@@ -56,6 +56,7 @@ jobs:
       - name: Kebernetes deployment step 
         run: |
             kubectl apply -f deployment.yml
+            kubectl apply -f service.yml
           
 
 
