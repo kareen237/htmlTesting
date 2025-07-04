@@ -61,6 +61,9 @@ jobs:
 
       - name: callint the public adreess 
         run: |
+             kubectl get pods
+             kubectl describe pod devops-app-7b5c6f4d8c-5g9x2
+             kubectl describe svc devops-service
              kubectl get svc devops-service -n default
 
           
