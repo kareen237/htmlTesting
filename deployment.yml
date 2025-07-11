@@ -13,7 +13,7 @@ spec:
         app: devops-app  # Label to identify pods
     spec:
       containers:
-      - name: devops-app-container  # Name of the container
+      - name: bamendagir  # Name of the container
         image: 891377331437.dkr.ecr.us-east-1.amazonaws.com/bamendagirl:v1 # Docker image to use
         ports:
         - containerPort: 80  # Exposing port
