@@ -59,11 +59,11 @@ jobs:
             kubectl apply -f service.yml
           
 
-      - name: callint the public adreess 
+      - name: calling the public adreess 
         run: |
              kubectl describe pod 
-             kubectl get pods devops-app-6c7dc7d457-lw6lq
-             kubectl describe pod 
+             kubectl get pods 
+             kubectl describe pod devops-app-6c7dc7d457-lw6lq
              kubectl describe svc devops-service
              kubectl get svc devops-service -n default
 
