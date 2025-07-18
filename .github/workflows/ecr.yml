@@ -1,73 +1,47 @@
-name: Terraform AWS ECR Setup
+terraform {
+  required_version = ">= 0.13"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 3.0"
+    }
+  }
+}
 
-on:
-  push:
-    branches:
-      - master
-  workflow_dispatch:
-    inputs:
-      content:
-        description: 'Enter the content for ECR file'
-        required: true
-        default: 'World'
+provider "aws" {
+  region = "us-east-1"
+}
 
-jobs:
-  terraform:
-    name: Terraform ECR Deployment
-    runs-on: ubuntu-latest
+module "eks" {
+  source  = "terraform-aws-modules/eks/aws"
+  version = "~> 18.0"
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+  cluster_name    = "Fred-EKS-Cluster"
+  cluster_version = "1.27"
+  vpc_id          = "vpc-07b02875b34c1fc99"
 
-      - name: Terraform AWS ECR Setup
-        run: echo ""
-      - name: aws credentials configuration
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
-          aws-region: us-east-1
+  subnet_ids = [
+    "subnet-002e52f12ca5193d2", # us-east-1a
+    "subnet-00ba46dda8362ada7"  # us-east-1b
+  ]
 
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v2
-        with:
-          mask-password: 'false'
+  enable_irsa = true
 
-      - name: Build, tag, and push image to Amazon ECR
-        id: build-image
-        run: 
-           docker build -t bamendagirl:latest .
-     
-      - name: Build, tag, and push image to Amazon ECR
-        id: tah
-        run: |        
-           docker tag bamendagirl:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/bamendagirl:v1
-           docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/bamendagirl:v1
-            
-        
-      - name: setup kubectl
-        run: |
-           aws eks  update-kubeconfig --name "my-eks-cluster"
-           kubectl get pods --all-namespaces
+  eks_managed_node_groups = {
+    default = {
+      desired_capacity = 3
+      max_capacity     = 4
+      min_capacity     = 2
 
+      instance_types = ["t3.medium"]
+    }
+  }
 
-      - name: Kebernetes deployment step 
-        run: |
-            kubectl apply -f deployment.yml
-            kubectl apply -f service.yml
-          
-
-      - name: calling the public adreess 
-        run: |
-             kubectl describe pod 
-             kubectl get pods 
-             # kubectl describe pod devops-app-6c7dc7d457-lw6lq
-             # kubectl describe svc devops-service
-             # kubectl get svc devops-service -n default
-
-          
+  tags = {
+    Environment = "dev"
+    Terraform   = "true"
+  }
+}
 
 
 
